@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  ehelp:
+    container_name: wavelength
+    build: .
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
