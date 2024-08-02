@@ -50,7 +50,7 @@ def join_room(message):
             data["rooms"][room_code]["value"] = randint(-10,10)
             save_data()
             bot.send_message(message.chat.id,'Room joined! Wait for the other player to start the game.',reply_markup=types.ReplyKeyboardRemove())
-            bot.send_message(data["rooms"][room_code]["players"][0],rf'{message.from_user.first_name} has joined the room.',reply_markup=types.ReplyKeyboardRemove())
+            bot.send_message(data["rooms"][room_code]["players"][0],f'{message.from_user.first_name} has joined the room.',reply_markup=types.ReplyKeyboardRemove())
             round(room_code, data["rooms"][room_code]["players"][0])
         else:
             bot.send_message(message.chat.id,'Such room does not exist! Choose one of the options below:',reply_markup=keyboard_main())
@@ -67,8 +67,8 @@ def round(room_code, chat_id):
     save_data()
     # teammate = data["rooms"][room_code]["players"]
     # teammate = teammate.remove(chat_id)[0]
-    # bot.send_message(chat_id,rf'{card[0] + " - " + card[1] + "\n" +progressbar(data["rooms"][room_code]["value"])}')
-    bot.send_message(chat_id,rf'{card[0] + " - " + card[1] + "\nValue: " + data["rooms"][room_code]["value"]}', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
+    # bot.send_message(chat_id,f'{card[0] + " - " + card[1] + "\n" +progressbar(data["rooms"][room_code]["value"])}')
+    bot.send_message(chat_id,f'{card[0] + " - " + card[1] + "\nValue: " + str(data["rooms"][room_code]["value"])}', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
     bot.send_message(chat_id,'Please give your clue:',reply_markup=types.ReplyKeyboardRemove())
     x = data["rooms"][room_code]["players"][:]
     x.remove(chat_id)
@@ -91,14 +91,14 @@ def get_score(message, room_code, chat_id):
     data["rooms"][room_code]["score"] += score
     x = data["rooms"][room_code]["players"][:]
     x.remove(chat_id)
-    bot.send_message(chat_id,rf'You scored: *{score}* points!\nCorrect answer: *{value}*\nTotal score: *{data["rooms"][room_code]["score"]}*', parse_mode='Markdown',reply_markup=types.ReplyKeyboardRemove())
-    bot.send_message(x[0],f"Your teammate scored: *{score}* points!\nTeammate's guess: *{guess}*\nCorrect answer: *{value}*.Cards remaining: *{len(data['rooms'][room_code]['cards'])}*\nTotal score: *{data["rooms"][room_code]["score"]}*", parse_mode='Markdown',reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(chat_id,f'You scored: *{score}* points!\nCorrect answer: *{value}*\nTotal score: *{data["rooms"][room_code]["score"]}*', parse_mode='Markdown',reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(x[0],f"Your teammate scored: *{score}* points!\nTeammate's guess: *{guess}*\nCorrect answer: *{value}*\nCards remaining: *{len(data['rooms'][room_code]['cards'])}*\nTotal score: *{data["rooms"][room_code]["score"]}*", parse_mode='Markdown',reply_markup=types.ReplyKeyboardRemove())
     bot.send_message(x[0],"Now it's your turn to guess. Please wait for the clue.",reply_markup=types.ReplyKeyboardRemove())
     if len(data["rooms"][room_code]["cards"]) > 0:
         round(room_code, chat_id)
     else:
-        bot.send_message(data["rooms"][room_code]["players"][0],rf'The end! Your score: {data["rooms"][room_code]["score"]}\nYou {"won" if data["rooms"][room_code]["score"] >= 16 else "lost"}!',reply_markup=keyboard_back())
-        bot.send_message(data["rooms"][room_code]["players"][1],rf'The end! Your score: {data["rooms"][room_code]["score"]}',reply_markup=keyboard_back())
+        bot.send_message(data["rooms"][room_code]["players"][0],f'The end! Your score: {data["rooms"][room_code]["score"]}\nYou {"won" if data["rooms"][room_code]["score"] >= 16 else "lost"}!',reply_markup=keyboard_back())
+        bot.send_message(data["rooms"][room_code]["players"][1],f'The end! Your score: {data["rooms"][room_code]["score"]}',reply_markup=keyboard_back())
         data["rooms"].pop(room_code)
     save_data()
 
@@ -107,7 +107,7 @@ def ask_guess(message, chat_id, room_code, card):
         bot.send_message(message.chat.id,"You are already in a game! Please continue playing. Try again:",reply_markup=types.ReplyKeyboardRemove())
         bot.register_next_step_handler_by_chat_id(message.chat.id, ask_guess, chat_id, room_code,card)
     bot.send_message(message.chat.id,"Thanks! Please, wait for your teammate's guess.",reply_markup=types.ReplyKeyboardRemove())
-    bot.send_message(chat_id,rf'Your teammate gave a clue for *{card[0]} - {card[1]}*: "{message.text}"\nPlease guess the value from -10 to 10:', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(chat_id,f'Your teammate gave a clue for *{card[0]} - {card[1]}*: "{message.text}"\nPlease guess the value from -10 to 10:', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
     bot.register_next_step_handler_by_chat_id(chat_id, get_score, room_code, chat_id)
 
 #handlers
