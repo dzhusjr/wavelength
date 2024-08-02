@@ -4,7 +4,17 @@ from utils import progressbar
 from telebot import TeleBot
 from telebot import types
 
-bot = TeleBot('7378860350:AAHKWT4JKB1JWSf6qKcWL2eKPB48U9Gpje8')
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access environment variables
+TOKEN = os.getenv('API_TOKEN')
+
+
+bot = TeleBot(TOKEN)
 
 #work with multiple users
 with open('data.json', 'r') as f:
