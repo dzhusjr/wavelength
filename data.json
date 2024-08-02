@@ -1,0 +1,293 @@
+{
+    "cards": [
+        [
+            "Cold",
+            "Hot"
+        ],
+        [
+            "Light",
+            "Heavy"
+        ],
+        [
+            "Slow",
+            "Fast"
+        ],
+        [
+            "Poor",
+            "Rich"
+        ],
+        [
+            "Dark",
+            "Bright"
+        ],
+        [
+            "Quiet",
+            "Loud"
+        ],
+        [
+            "Small",
+            "Large"
+        ],
+        [
+            "Old-fashioned",
+            "Modern"
+        ],
+        [
+            "Bitter",
+            "Sweet"
+        ],
+        [
+            "Hard",
+            "Soft"
+        ],
+        [
+            "Dirty",
+            "Clean"
+        ],
+        [
+            "Boring",
+            "Exciting"
+        ],
+        [
+            "Weak",
+            "Strong"
+        ],
+        [
+            "Cheap",
+            "Expensive"
+        ],
+        [
+            "Unintelligent",
+            "Intelligent"
+        ],
+        [
+            "Relaxed",
+            "Tense"
+        ],
+        [
+            "Unhealthy",
+            "Healthy"
+        ],
+        [
+            "Difficult",
+            "Easy"
+        ],
+        [
+            "Uncomfortable",
+            "Comfortable"
+        ],
+        [
+            "Plain",
+            "Stylish"
+        ],
+        [
+            "Used",
+            "New"
+        ],
+        [
+            "Unpopular",
+            "Popular"
+        ],
+        [
+            "Dangerous",
+            "Safe"
+        ],
+        [
+            "Chaotic",
+            "Ordered"
+        ],
+        [
+            "Low",
+            "High"
+        ],
+        [
+            "Rough",
+            "Soft"
+        ],
+        [
+            "Hazy",
+            "Clear"
+        ],
+        [
+            "Passive",
+            "Active"
+        ],
+        [
+            "Inefficient",
+            "Efficient"
+        ],
+        [
+            "Fragile",
+            "Strong"
+        ],
+        [
+            "Pessimistic",
+            "Optimistic"
+        ],
+        [
+            "Unreliable",
+            "Reliable"
+        ],
+        [
+            "Innovative",
+            "Traditional"
+        ],
+        [
+            "Compact",
+            "Expansive"
+        ],
+        [
+            "Dull",
+            "Vibrant"
+        ],
+        [
+            "Lazy",
+            "Energetic"
+        ],
+        [
+            "Bad Movie",
+            "Good Movie"
+        ],
+        [
+            "Bad Date",
+            "Good Date"
+        ],
+        [
+            "Awkward",
+            "Smooth"
+        ],
+        [
+            "Cheap Thrill",
+            "Expensive Pleasure"
+        ],
+        [
+            "Unremarkable",
+            "Memorable"
+        ],
+        [
+            "Forgettable",
+            "Impactful"
+        ],
+        [
+            "Routine",
+            "Adventurous"
+        ],
+        [
+            "Stressful",
+            "Relaxing"
+        ],
+        [
+            "Annoying",
+            "Pleasant"
+        ],
+        [
+            "Frustrating",
+            "Satisfying"
+        ],
+        [
+            "Confusing",
+            "Clear"
+        ],
+        [
+            "Overrated",
+            "Underrated"
+        ],
+        [
+            "Predictable",
+            "Surprising"
+        ],
+        [
+            "Common",
+            "Unique"
+        ],
+        [
+            "Uncool",
+            "Cool"
+        ],
+        [
+            "Unsexy emoji",
+            "Sexy emoji"
+        ],
+        [
+            "Unhygienic",
+            "Hygienic"
+        ],
+        [
+            "Tastes bad",
+            "Tastes good"
+        ],
+        [
+            "Round",
+            "Pointy"
+        ],
+        [
+            "Useless",
+            "Useful"
+        ],
+        [
+            "Quiet space",
+            "Loud space"
+        ],
+        [
+            "Rough",
+            "Smooth"
+        ],
+        [
+            "Job",
+            "Career"
+        ],
+        [
+            "Bad man",
+            "Good man"
+        ],
+        [
+            "Hairless",
+            "Hairy"
+        ],
+        [
+            "Fantasy",
+            "Sci-Fi"
+        ],
+        [
+            "Sad song",
+            "Happy song"
+        ],
+        [
+            "Smells bad",
+            "Smells good"
+        ],
+        [
+            "Boring topic",
+            "Fascinating topic"
+        ],
+        [
+            "Hard to spell",
+            "Easy to spell"
+        ],
+        [
+            "Feels bad",
+            "Feels good"
+        ],
+        [
+            "Failure",
+            "Masterpiece"
+        ],
+        [
+            "Warlike",
+            "Peaceful"
+        ],
+        [
+            "80s",
+            "90s"
+        ],
+        [
+            "Neurotic person",
+            "Chill person"
+        ],
+        [
+            "Scary person",
+            "Nice person"
+        ]
+    ],
+    "rooms": {}
+}
