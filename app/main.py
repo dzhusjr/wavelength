@@ -43,6 +43,15 @@ def join_room(message):
         return
     elif message.text.isdigit():
         if message.text in data["rooms"]:
+            for i in data["rooms"]:
+                if message.chat.id in data["rooms"][i]["players"]:
+                    for chat_id in data["rooms"][i]["players"]:
+                        if i == message.text:
+                            bot.send_message(chat_id,'You cannot join your own room.',reply_markup=keyboard_main())
+                            return
+                        bot.send_message(chat_id,'Your previous room has ended.',reply_markup=types.ReplyKeyboardRemove())
+                    data["rooms"].pop(i)
+                    break
             room_code = message.text
             data["rooms"][room_code]["players"].append(message.chat.id)
             data["rooms"][room_code]["cards"] = [choice(data["cards"]) for _ in range(7)]
@@ -114,7 +123,6 @@ def ask_guess(message, chat_id, room_code, card):
 @bot.message_handler(commands=["start"])
 def func(message):
     bot.send_message(message.chat.id,"Hello! Welcome to Wavelength game (/rules)!\nChoose one of the options below:", reply_markup = keyboard_main())
-    bot.register_next_step_handler(message, func)
 
 @bot.message_handler(commands=["rules"])
 def func(message):
@@ -150,7 +158,6 @@ def func(message):
 *Summary:* 
 Guess close to the hidden value. Score points based on how close your guess is. Use bonus cards wisely to extend gameplay. Aim for over 16 points to win.
 """, reply_markup = keyboard_main(), parse_mode="Markdown")
-    bot.register_next_step_handler(message, func)
 
 @bot.message_handler(commands=["get_invite_link"])
 def func(message):
@@ -165,6 +172,11 @@ def func(message):
         bot.send_message(message.chat.id,'Choose one of the options below:',reply_markup=keyboard_main())
         return
     elif message.text == "Create Room 🏠":
+        # check if room with player = message.chat.id exists
+        for i in data["rooms"]:
+            if message.chat.id in data["rooms"][i]["players"]:
+                bot.send_message(message.chat.id,'You are already in a game! Do you want to leave the room and create a new one?:',reply_markup=types.InlineKeyboardMarkup().add(types.InlineKeyboardButton(text="Yes", callback_data="yes_recreate"), types.InlineKeyboardButton(text="No", callback_data="no_recreate")))
+                return
         room_code = randint(100000, 999999)
         while room_code in data["rooms"]:
             room_code = randint(100000, 999999)
@@ -182,5 +194,32 @@ def func(message):
     else:
         bot.send_message(message.chat.id,"Choose one of the options below:",reply_markup=keyboard_main())
         return
+
+
+# handle yes and nop button callback
+@bot.callback_query_handler(func=lambda call: True)
+def check_callback(call):
+    global data
+    if call.data == "yes_recreate":
+        for i in data["rooms"]:
+            if call.message.chat.id in data["rooms"][i]["players"]:
+                for chat_id in data["rooms"][i]["players"]:
+                    bot.send_message(chat_id,'Your room has ended.',reply_markup=types.ReplyKeyboardRemove())
+                data["rooms"].pop(i)
+                break
+        room_code = randint(100000, 999999)
+        while room_code in data["rooms"]:
+            room_code = randint(100000, 999999)
+        data["rooms"][str(room_code)] = {}
+        data["rooms"][str(room_code)]["players"] = [call.message.chat.id]
+        
+        save_data()
+        bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
+        bot.send_message(call.message.chat.id,f"Your room code: `{room_code}`. Copy it and send it to your friend.",reply_markup=types.ReplyKeyboardRemove(), parse_mode="Markdown")
+        return
+    elif call.data == "no_recreate":
+        bot.edit_message_text("Please continue the game.", chat_id=call.message.chat.id, message_id=call.message.message_id)
+        return
+
 
 bot.infinity_polling()
