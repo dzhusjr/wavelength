@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/ehelp_admin/wavelength
+            cd /home/ehelp_admin/wavelength_bot
             git fetch
             git reset --hard origin/main
             docker-compose up --build -d
