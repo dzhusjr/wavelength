@@ -56,7 +56,7 @@ def join_room(message):
             data["rooms"][room_code]["players"].append(message.chat.id)
             data["rooms"][room_code]["cards"] = [choice(data["cards"]) for _ in range(7)]
             data["rooms"][room_code]["score"] = 0
-            data["rooms"][room_code]["value"] = randint(-10,10)
+            data["rooms"][room_code]["value"] = randint(-5,5)
             save_data()
             bot.send_message(message.chat.id,'Room joined! Wait for the other player to start the game.',reply_markup=types.ReplyKeyboardRemove())
             bot.send_message(data["rooms"][room_code]["players"][0],f'{message.from_user.first_name} has joined the room.',reply_markup=types.ReplyKeyboardRemove())
@@ -70,7 +70,7 @@ def join_room(message):
     
 def round(room_code, chat_id):
     global data
-    data["rooms"][room_code]["value"] = randint(-10,10)
+    data["rooms"][room_code]["value"] = randint(-5,5)
     card = data["rooms"][room_code]["cards"][0]
     data["rooms"][room_code]["cards"].pop(0)
     save_data()
@@ -89,7 +89,7 @@ def get_score(message, room_code, chat_id):
         bot.send_message(message.chat.id,"You are already in a game! Please continue playing. Try again:",reply_markup=types.ReplyKeyboardRemove())
         bot.register_next_step_handler_by_chat_id(message.chat,id, get_score, room_code, chat_id)
     if not message.text.replace('-','').isdigit():
-        bot.send_message(message.chat.id,'Wrong input! Try again (from -10 to 10):',reply_markup=types.ReplyKeyboardRemove())
+        bot.send_message(message.chat.id,'Wrong input! Try again (from -5 to 5):',reply_markup=types.ReplyKeyboardRemove())
         bot.register_next_step_handler_by_chat_id(message.chat,id, get_score, room_code, chat_id)
         return
     guess = int(message.text)
@@ -116,7 +116,7 @@ def ask_guess(message, chat_id, room_code, card):
         bot.send_message(message.chat.id,"You are already in a game! Please continue playing. Try again:",reply_markup=types.ReplyKeyboardRemove())
         bot.register_next_step_handler_by_chat_id(message.chat.id, ask_guess, chat_id, room_code,card)
     bot.send_message(message.chat.id,"Thanks! Please, wait for your teammate's guess.",reply_markup=types.ReplyKeyboardRemove())
-    bot.send_message(chat_id,f'Your teammate gave a clue for *{card[0]} - {card[1]}*: "{message.text}"\nPlease guess the value from -10 to 10:', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(chat_id,f'Your teammate gave a clue for *{card[0]} - {card[1]}*: "{message.text}"\nPlease guess the value from -5 to 5:', parse_mode='Markdown', reply_markup=types.ReplyKeyboardRemove())
     bot.register_next_step_handler_by_chat_id(chat_id, get_score, room_code, chat_id)
 
 #handlers
@@ -130,7 +130,7 @@ def func(message):
 *Wavelength (Cooperative Mode) Rules*
 
 *Goal:*
-- Work together to score points by guessing as close as possible to the hidden value on a spectrum from *-10 to 10*.
+- Work together to score points by guessing as close as possible to the hidden value on a spectrum from *-5 to 5*.
 
 *Setup:*
 - One player (the *"Psychic"*) knows the target value on the spectrum.
@@ -177,9 +177,9 @@ def func(message):
             if message.chat.id in data["rooms"][i]["players"]:
                 bot.send_message(message.chat.id,'You are already in a game! Do you want to leave the room and create a new one?:',reply_markup=types.InlineKeyboardMarkup().add(types.InlineKeyboardButton(text="Yes", callback_data="yes_recreate"), types.InlineKeyboardButton(text="No", callback_data="no_recreate")))
                 return
-        room_code = randint(100000, 999999)
+        room_code = randint(10000, 999999)
         while room_code in data["rooms"]:
-            room_code = randint(100000, 999999)
+            room_code = randint(10000, 999999)
         data["rooms"][str(room_code)] = {}
         data["rooms"][str(room_code)]["players"] = [message.chat.id]
         save_data()
@@ -207,9 +207,9 @@ def check_callback(call):
                     bot.send_message(chat_id,'Your room has ended.',reply_markup=types.ReplyKeyboardRemove())
                 data["rooms"].pop(i)
                 break
-        room_code = randint(100000, 999999)
+        room_code = randint(10000, 999999)
         while room_code in data["rooms"]:
-            room_code = randint(100000, 999999)
+            room_code = randint(10000, 999999)
         data["rooms"][str(room_code)] = {}
         data["rooms"][str(room_code)]["players"] = [call.message.chat.id]
         
@@ -222,4 +222,4 @@ def check_callback(call):
         return
 
 
-bot.infinity_polling()
+bot.infinity_polling(skip_pending=True)
