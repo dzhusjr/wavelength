@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  wavelength:
+    container_name: wavelength
+    build: .
+    restart: always
+    env_file:
+      - .env
+  
